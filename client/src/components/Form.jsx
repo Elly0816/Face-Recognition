@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 
-export default function InputForm() {
+export default function InputForm(props) {
 
 
 
@@ -14,7 +14,7 @@ export default function InputForm() {
         <
         div >
         <
-        h3 > Select the image you 'd like to upload</h3> <
+        h3 > { props.action } < /h3> <
         /div> <
         Form.Control type = "file"
     size = "lg" / >

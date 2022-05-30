@@ -1,6 +1,15 @@
 import React from 'react';
 
-export default function Header() {
+export default function Header(props) {
+
+    function toFind() {
+        props.changeForm(true);
+    }
+
+
+    function toSave() {
+        props.changeForm(false);
+    }
 
     return <header >
         <
@@ -12,13 +21,15 @@ export default function Header() {
         <
         div >
         <
-        a href = "/" > Find and blur this face < /a> <
+        a href = "#" > < h3 onClick = { toFind } > Find and blur this face < /h3></a >
+        <
         /div>
 
     <
     div >
         <
-        a href = "/" > Add to Images < /a>     <
+        a href = "#" > < h3 onClick = { toSave } > Add to Images < /h3></a >
+        <
         /div> <
         /div> <
         /header>
