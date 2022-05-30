@@ -2,14 +2,15 @@ import React from 'react';
 
 export default function Header(props) {
 
+
     function toFind() {
         props.changeForm(true);
     }
 
-
     function toSave() {
         props.changeForm(false);
     }
+    /*The functions above change the toFind state in parent (App) component */
 
     return <header >
         <
