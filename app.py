@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 
-
+"""This is the endpoint that the react app would make requests to"""
 load_dotenv()
 port = os.getenv('PORT')
 
