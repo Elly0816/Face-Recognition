@@ -10,6 +10,12 @@ numpy
 
 face-recognition: pip install face-recognition
 
+**Environment Variables**
+
+IMAGES = name of folder in current directory containing images to match against
+
+FACE = name of folder containing face to find
+
 **FOLDERS**
 
 /face: holds the image file of the face to look for. 
