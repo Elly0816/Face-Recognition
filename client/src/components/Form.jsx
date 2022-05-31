@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Button } from 'react-bootstrap';
 
 
 export default function InputForm(props) {
@@ -19,6 +20,11 @@ export default function InputForm(props) {
         Form.Control type = "file"
     size = "lg" / >
         <
+        div >
+        <
+        Button variant = "success"
+    type = "submit" > Submit < /Button> <
+        /div> <
         /Form> <
         /div> <
         /div>

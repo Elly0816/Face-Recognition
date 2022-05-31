@@ -22,14 +22,14 @@ export default function Header(props) {
         <
         div >
         <
-        a href = "#" > < h3 onClick = { toFind } > Find and blur this face < /h3></a >
+        a href = "#" > < h5 onClick = { toFind } > Find and blur this face < /h5></a >
         <
         /div>
 
     <
     div >
         <
-        a href = "#" > < h3 onClick = { toSave } > Add to Images < /h3></a >
+        a href = "#" > < h5 onClick = { toSave } > Add to Images < /h5></a >
         <
         /div> <
         /div> <
