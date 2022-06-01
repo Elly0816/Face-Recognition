@@ -16,7 +16,11 @@ export default function Header(props) {
         <
         div className = 'title' >
         <
-        h1 > fACE bLUR < /h1> <
+        div >
+        <
+        a href = "/" > < h1 > fACE bLUR < /h1></a >
+        <
+        /div> <
         /div> <
         div className = 'links' >
         <

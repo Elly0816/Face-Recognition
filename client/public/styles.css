@@ -20,6 +20,15 @@ header {
     flex: 1;
 }
 
+.title a {
+    text-decoration: none;
+    color: white;
+}
+
+.title div {
+    width: max-content;
+}
+
 .links {
     flex: 1;
     text-align: right;
