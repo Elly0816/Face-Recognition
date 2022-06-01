@@ -60,6 +60,7 @@ header {
     color: white;
     width: 500px;
     height: 300px;
+    height: max-content;
 }
 
 form div {

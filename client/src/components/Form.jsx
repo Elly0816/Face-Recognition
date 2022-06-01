@@ -11,6 +11,7 @@ export default function InputForm(props) {
     const [reply, setReply] = useState();
 
     let file;
+    let target = '';
 
     function uploadFile(url, file) {
         let formData = new FormData();
@@ -20,20 +21,24 @@ export default function InputForm(props) {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
-            setReply(response);
+            console.log(response.data);
+            setReply(response.data);
+            props.changeForm(false);
         }).catch(error => console.log(error));
     }
 
     function onChange(e) {
         file = e.target.files[0];
+        target = e.target;
     }
 
 
     function submitFile(e) {
         e.preventDefault();
         console.log('target files: ', e.target);
-        let fileToSubmit = file;
-        uploadFile(url, fileToSubmit);
+        uploadFile(url, file);
+        target.value = null;
+        setTimeout(() => { setReply() }, 6000);
     }
 
     return <div className = 'form-container-parent' >
@@ -51,7 +56,7 @@ export default function InputForm(props) {
     size = "lg" / >
         <
         div > {
-            reply && < p > { reply.message } < /p>} <
+            reply && < h6 > { reply.message } < /h6>} <
             /div> <
             div >
             <

@@ -23,9 +23,11 @@ function App() {
             <
             InputForm action = { 'Upload the image with the face you would like to blur' }
         route = { 'find' }
+        changeForm = { changeForm }
         /> :  <
         InputForm action = { 'Upload the image you would like to save' }
         route = { 'save' }
+        changeForm = { changeForm }
         />} <
         Footer / >
             <

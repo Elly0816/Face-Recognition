@@ -41,7 +41,7 @@ def upload_file(endpoint):
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(images_folder, filename))
-                return jsonify({'message': 'image saved!'})
+                return jsonify({'message': 'Image saved!'})
     #TODO 1: Create route to load image into face folder,
     # blur images where the face appears from the images folder,
     # and then returns the blurred images as a file.
