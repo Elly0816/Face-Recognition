@@ -18,8 +18,6 @@ class RecognizeFace:
     def __init__(self, img: str, folder: str) -> None:
         self.img  = img #Image with known face
         self.folder = folder
-        self.resize = 0.25
-        # self.to_encode(self.img)
         self.required_face = self.to_encode(self.img)
         self.detect_required_faces(self.required_face, folder)
 
@@ -49,6 +47,6 @@ class RecognizeFace:
 
 # TODO: grab the rectangle cordinates of the image
 
-RecognizeFace(img=f'{face_folder}/jim.jpg', folder=images_folder)
+# RecognizeFace(img=f'{face_folder}/jim.jpg', folder=images_folder)
 
 # i
