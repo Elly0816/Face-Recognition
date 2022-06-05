@@ -29,6 +29,7 @@ export default function InputForm(props) {
         } else if (props.route === 'find') {
             formData.append('file', file)
             axios.post(url, formData, {
+                responseType: 'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
