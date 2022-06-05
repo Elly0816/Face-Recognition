@@ -14,17 +14,36 @@ export default function InputForm(props) {
     let target = '';
 
     function uploadFile(url, file) {
-        let formData = new FormData();
-        formData.append('file', file);
-        axios.post(url, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(response => {
-            console.log(response.data);
-            setReply(response.data);
-            props.changeForm(false);
-        }).catch(error => console.log(error));
+        const formData = new FormData();
+        if (props.route === 'save') {
+            formData.append('file', file);
+            axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                console.log(response.data);
+                setReply(response.data);
+                props.changeForm(false);
+            }).catch(error => console.log(error));
+        } else if (props.route === 'find') {
+            formData.append('file', file)
+            axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                const blob = window.URL.createObjectURL(new Blob([response.data], {
+                    type: 'application/zip'
+                }))
+                const link = document.createElement('a');
+                link.href = blob;
+                link.setAttribute('download', 'file.zip');
+                document.body.appendChild(link);
+                link.click();
+            }).catch(error => console.log(error))
+        }
+
     }
 
     function onChange(e) {

@@ -1,18 +1,21 @@
 import os
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, make_response, request, send_file
 from dotenv import load_dotenv
 from recognize_face import RecognizeFace
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
-from zipfile import ZipFile
+from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
+import time
 # This allows for streaming bytes from a file
 from io import BytesIO
+
 
 """This is the endpoint that the react app would make requests to"""
 load_dotenv()
 port = os.getenv('PORT')
 images_folder = os.getenv('IMAGES')
 face_folder = os.getenv('FACE')
+zip_file = os.getenv('ZIP')
 ALLOWED_EXTENSIONS = ['png', 'jpeg', 'jpg']
 
 def allowed_file(filename):
@@ -64,25 +67,18 @@ def upload_file(endpoint):
                 # Match and blur the face the user sent from the 
                 # images folder
                 RecognizeFace(img=f'{face_folder}/{filename}', folder=images_folder)
-                stream = BytesIO()
-                with ZipFile(stream, 'w') as zf:
-                    for file in images_folder:
-                        print(f"file: {file}")
-                        #Checks if the file is a blurred
-                        if file.split('_')[0] == 'blur':
-                            zf.write(file, os.path.basename(file))
-                            # Deletes the file after writing it to the zipfile
+                os.remove(os.path.join(face_folder, filename))
+                # Creates/Open zip file for writing
+                with ZipFile(zip_file, 'w') as my_zip:
+                    # Writes the blurred images into the zip folder
+                    # and removes them from the images folder
+                    for filename in os.listdir(images_folder):
+                        if filename.split("_")[0] == 'blur':
+                            file = os.path.join(images_folder, filename)
+                            my_zip.write(file)
                             os.remove(file)
-                stream.seek(0)
-                return send_file(stream,
-                                 as_attachment=True,
-                                 download_name='blurred images')
-                
-
-                
-                            
-
-
+                to_send = os.path.join(zip_file)
+                return send_file(to_send, as_attachment=True, download_name='Images')            
 
 if __name__ == '__main__':
     app.run(port=port, debug=True)
