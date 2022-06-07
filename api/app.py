@@ -18,6 +18,11 @@ face_folder = os.getenv('FACE')
 zip_file = os.getenv('ZIP')
 ALLOWED_EXTENSIONS = ['png', 'jpeg', 'jpg']
 
+if images_folder not in os.listdir(os.curdir) and face_folder not in os.listdir(os.curdir):
+    os.mkdir(images_folder)
+    os.mkdir(face_folder)
+    
+
 def allowed_file(filename):
     if '.' in filename and filename.split('.')[-1].lower() in ALLOWED_EXTENSIONS:
         return True
