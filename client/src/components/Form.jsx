@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function InputForm(props) {
 
-    const url = `http://127.0.0.1:5000/${props.route}`;
+    const url = `https://faceblur01.herokuapp.com/${props.route}`;
 
     const [reply, setReply] = useState();
 
@@ -29,6 +29,7 @@ export default function InputForm(props) {
         } else if (props.route === 'find') {
             formData.append('file', file)
             axios.post(url, formData, {
+                /*response type ensures the zip file is not invalid */
                 responseType: 'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data'
