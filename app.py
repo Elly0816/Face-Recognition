@@ -1,3 +1,4 @@
+from distutils.log import debug
 import os
 from flask import Flask, jsonify, make_response, render_template, request, send_file, send_from_directory
 from dotenv import load_dotenv
@@ -29,7 +30,7 @@ def allowed_file(filename):
     else:
         return False
 
-app = Flask(__name__, static_folder='../client/build', static_url_path='')
+app = Flask(__name__, static_folder='client/build', static_url_path='')
 CORS(app, supports_credentials=True)
 
 
