@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function InputForm(props) {
 
-    const url = `https://faceblur01.herokuapp.com/${props.route}`;
+    const url = `/${props.route}`;
 
     const [reply, setReply] = useState();
 
