@@ -30,7 +30,7 @@ def allowed_file(filename):
     else:
         return False
 
-app = Flask(__name__, static_folder='client/build', static_url_path='')
+app = Flask(__name__, static_folder='client/build', static_url_path='/')
 CORS(app, supports_credentials=True)
 
 
@@ -69,9 +69,11 @@ def upload_file(endpoint):
     if endpoint == 'find':
         if request.method == 'POST':
             if 'file' not in request.files:
+                print('No file part')
                 return jsonify({'message': 'No file part'})
             file = request.files['file']
             if file.filename == '':
+                print('no selected file')
                 return jsonify({'message': 'No selected file'})
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
@@ -93,4 +95,4 @@ def upload_file(endpoint):
                 return send_file(to_send, as_attachment=True, download_name='Images')            
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

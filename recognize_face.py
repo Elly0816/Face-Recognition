@@ -25,7 +25,7 @@ class RecognizeFace:
         """This returns the encoding of the face to be found"""
         img = cv2.imread(img)
         img_encoding = face_recognition.face_encodings(img)[0]
-
+ 
         return img_encoding
 
 
