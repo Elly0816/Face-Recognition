@@ -30,7 +30,7 @@ def allowed_file(filename):
     else:
         return False
 
-app = Flask(__name__, static_folder='client/build', static_url_path='/')
+app = Flask(__name__, static_folder='client/build', static_url_path='')
 CORS(app, supports_credentials=True)
 
 
@@ -95,4 +95,4 @@ def upload_file(endpoint):
                 return send_file(to_send, as_attachment=True, download_name='Images')            
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
