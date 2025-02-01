@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 
-export default function InputForm(props){
 
-    const url = `/${props.route}`;
+type replyType = {
+    'message': string
+}
 
-    const [reply, setReply] = useState();
+type InputFormType = {
+    route:string,
+    changeForm:(value:boolean)=>void,
+    action:string
+}
+export default function InputForm({route, changeForm, action}:InputFormType):ReactElement{
 
-    let file;
-    let target = '';
+    const url = `/${route}`;
 
-    function uploadFile(url, file){
+    const [reply, setReply] = useState<replyType>();
+
+    let file:File;
+    let target:ChangeEvent<HTMLFormElement>['target'];
+
+    function uploadFile(url:string, file:File){
         const formData = new FormData();
-        if (props.route === 'save'){
+        if (route === 'save'){
         formData.append('file', file);
         axios.post(url, formData, {
             headers: {
@@ -24,10 +34,10 @@ export default function InputForm(props){
         }).then(response => {
             console.log(response.data);
             setReply(response.data);
-            props.changeForm(false);
+            changeForm(false);
         }).catch(error => console.log(error));
         }
-        else if (props.route === 'find'){
+        else if (route === 'find'){
             /*In case no file was sent */
             if (!file){
                 setReply({'message': "There was no file sent!"});
@@ -66,27 +76,29 @@ export default function InputForm(props){
         
     }
 
-    function onChange(e){
+    function onChange(e:ChangeEvent<HTMLFormElement>){
         file = e.target.files[0];
         target = e.target;
     }
 
 
-    function submitFile(e){
-        e.preventDefault();
-        console.log('target files: ', e.target);
+    function submitFile(event:FormEvent<HTMLFormElement>){
+        event.preventDefault();
+        console.log('target files: ', event.target);
         uploadFile(url, file);
-        (target !== '') && (target.value = null);
-        setTimeout(() => {setReply()}, 6000);
+        target.value = null;
+        setTimeout(() => {setReply(undefined)}, 6000);
     }
 
     return <div className='form-container-parent'>
         <div className='form'>
-            <Form onSubmit={submitFile}>
+            <Form onSubmit={(event) => {
+                console.log('File submit attempt was made');
+                submitFile.bind(event)}}>
                 <div>
-                    <h3>{props.action}</h3>
+                    <h3>{action}</h3>
                 </div>
-                <Form.Control onChange={onChange} type="file" size="lg"/>
+                <Form.Control onChange={(event) => onChange.bind(event)} type="file" size="lg"/>
                 <div>
                     {reply && <h6>{reply.message}</h6>}
                 </div>

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import InputForm from './Form';
-import Footer from './Footer';
+import Header from '../components/Header';
+import InputForm from '../components/Form';
+import Footer from '../components/Footer';
 
 function App() {
 
   /*This state is used to chek whether the user wants to save an image
   or is sending a reference image to blur faces */
-  const [toFind, setToFind] = useState(true);
+  const [toFind, setToFind] = useState<boolean>(true);
 
 
   /*This changes the state above in the Header component to true or false */
-  function changeForm(what){
+  function changeForm(what: boolean): void {
     setToFind(what);
   }
 
