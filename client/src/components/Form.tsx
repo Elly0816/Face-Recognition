@@ -14,14 +14,16 @@ type InputFormType = {
     changeForm:(value:boolean)=>void,
     action:string
 }
+
+
 export default function InputForm({route, changeForm, action}:InputFormType):ReactElement{
 
-    const url = `/${route}`;
+    const url = `http://127.0.0.1:5000/${route}`;
 
     const [reply, setReply] = useState<replyType>();
 
     let file:File;
-    let target:ChangeEvent<HTMLFormElement>['target'];
+    let target:ChangeEvent<HTMLInputElement|HTMLFormElement>['target']|null;
 
     function uploadFile(url:string, file:File){
         const formData = new FormData();
@@ -76,8 +78,9 @@ export default function InputForm({route, changeForm, action}:InputFormType):Rea
         
     }
 
-    function onChange(e:ChangeEvent<HTMLFormElement>){
-        file = e.target.files[0];
+
+    function onChange(e:ChangeEvent<HTMLInputElement>){
+        file = (e.target.files as FileList)[0];
         target = e.target;
     }
 
@@ -86,7 +89,10 @@ export default function InputForm({route, changeForm, action}:InputFormType):Rea
         event.preventDefault();
         console.log('target files: ', event.target);
         uploadFile(url, file);
-        target.value = null;
+
+        if(target != null){
+            target.value = null;
+        }
         setTimeout(() => {setReply(undefined)}, 6000);
     }
 
@@ -94,11 +100,12 @@ export default function InputForm({route, changeForm, action}:InputFormType):Rea
         <div className='form'>
             <Form onSubmit={(event) => {
                 console.log('File submit attempt was made');
-                submitFile.bind(event)}}>
+                event.preventDefault();
+                submitFile(event)}}>
                 <div>
                     <h3>{action}</h3>
                 </div>
-                <Form.Control onChange={(event) => onChange.bind(event)} type="file" size="lg"/>
+                <Form.Control onChange={(event) => {onChange(event as unknown as ChangeEvent<HTMLInputElement>)}} type="file" size="lg"/>
                 <div>
                     {reply && <h6>{reply.message}</h6>}
                 </div>

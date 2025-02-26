@@ -46,6 +46,7 @@ def serve():
 # Cross origin allows api calls to be made to this route
 @cross_origin(supports_credentials=True)
 def upload_file(endpoint: str):
+    print(endpoint)
     # TODO 2: Create route to save images into the images folder
     # This returns a message of the status of the save
     if endpoint == 'save':
