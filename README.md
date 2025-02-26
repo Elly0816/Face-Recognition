@@ -1,54 +1,81 @@
-**Face Blur: React / Flask Application**
+# Face Blur: React & Flask Application
 
-[Live Site](https://faceblur01.herokuapp.com/)
+## Overview
+Face Blur is a full-stack application that allows users to send an image either to detect faces for blurring from a set of saved images or to add an image to the saved list. The client is built with React and the server is built with Flask. The server leverages Python libraries like OpenCV and face_recognition to perform image processing.
 
-The client contains a react frontend that posts to two routes on the flask server.
+## Features
+- **Face Recognition:** Identify and match faces across images.
+- **Image Processing:** Apply pixelated blur to regions containing detected faces.
+- **Dynamic UI:** Toggle between uploading a reference face or an image for processing.
+- **Environment Configurable:** Setup folders and image paths through environment variables.
 
+## Technologies Used
+- **Frontend:** React, TypeScript
+- **Backend:** Python, Flask
+- **Image Processing:** OpenCV, face_recognition, numpy
+- **Dependency Management:** npm for client and pip for server
 
-The routes are /save and /find
+## Installation
 
-**/save**
+### Prerequisites
+- Node.js & npm
+- Python 3.x
+- pip
 
-This route saves the image to a folder as one of the images to find a face in and blur
+### Client Setup
+1. Navigate to the client directory:
+    - `cd client`
+2. Install dependencies:
+    - `npm install`
+3. Start the development server:
+    - `npm start`
 
+### Server Setup
+1. Navigate to the project root.
+2. Create a virtual environment and activate it:
+    - `python -m venv venv`
+    - Windows: `venv\Scripts\activate`
+3. Install required Python packages:
+    - `pip install -r requirements.txt`  
+      *(If no requirements file exists, install: opencv-python, numpy, face-recognition, python-dotenv)*
+4. Set up environment variables by creating a `.env` file in the project root:
+    ```
+    IMAGES=images
+    FACE=face
+    ZIP-zip
+    ```
+5. Start the Flask server:
+    - `flask run`
 
-**/find**
+## Folder Structure
+```
+/C:/[...]/[...]/[...]/Face-Recognition
+├── client/                # React frontend source code
+│   └── src/
+│       └── components/
+│           └── App.tsx  # Main React component
+├── api/                   # API related documentation
+│   └── README.md
+├── face_blur.py           # Python module to blur faces in images
+├── recognize_face.py      # Python module to recognize and match faces
+├── README.md              # Project documentation
+└── .env                   # Environment configuration file
+```
 
-This route sends a face to the server to find and blur if it exists in the saved images.
+## Usage
+- **Uploading an Image to Process:**  
+  Use the client interface to select the mode (`/find` for blur search, `/save` for adding a new reference image).  
+- **Server Operation:**  
+  When an image is uploaded, the server processes it by detecting faces. Matching faces found in the configured image folder are blurred using the `BlurFace` module.
 
+## Troubleshooting
+- **Invalid Coordinates:**  
+  Ensure the face detection returns proper coordinates. The `BlurFace` module will print a message if coordinates are invalid.
+- **Environment Variables:**  
+  Verify that the `.env` file exists and that `IMAGES`, `FACE` and `ZIP` are correctly set.
 
-**Clone the repo with**: git clone https://github.com/Elly0816/Face-Recognition.git
+## Contributing
+Feel free to contribute by opening issues or submitting pull requests.
 
-
-**Server**
-
-**PACKAGES**
-
-opencv: pip install opencv-python
-
-numpy
-
-face-recognition: pip install face-recognition
-
-**Environment Variables**
-
-IMAGES = name of folder in current directory containing images to match against
-
-FACE = name of folder containing face to find
-
-**FOLDERS**
-
-/face: holds the image file of the face to look for. 
-
-/images: Holds the image files to be compared against
-
-**MODULES**
-
-**face_blur**: BlurFace(coordinates=(bottom, right, top, left),
-image=relative_path_to_image,
-folder=relative_path_of_folder_containing_images_to_search_against,
-name=name_of_image)
-
-**recognize_face**:RecognizeFace(img=relative_path_to_image,
-folder=relative_path_of_folder_containing_images_to_search_against,
-)
+## License
+This project is licensed under the MIT License.

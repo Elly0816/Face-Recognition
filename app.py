@@ -17,12 +17,21 @@ port = os.getenv('PORT')
 images_folder = os.getenv('IMAGES')
 face_folder = os.getenv('FACE')
 zip_file = os.getenv('ZIP')
-ALLOWED_EXTENSIONS = ['png', 'jpeg', 'jpg']
+ALLOWED_EXTENSIONS = ['png', 'jpeg', 'jpg', 'webp']
 
 
-if images_folder not in os.listdir(os.curdir) and face_folder not in os.listdir(os.curdir):
+# if images_folder not in os.listdir(os.curdir) and face_folder not in os.listdir(os.curdir):
+#     os.mkdir('images')
+#     os.mkdir('face')
+
+if images_folder not in os.listdir(os.curdir):
     os.mkdir('images')
+
+if face_folder not in os.listdir(os.curdir):
     os.mkdir('face')
+
+# if images_folder not in os.listdir(os.curdir):
+#     os.('images')
 
 
 def allowed_file(filename: str) -> bool:
@@ -94,6 +103,7 @@ def upload_file(endpoint: str):
                     for filename in os.listdir(images_folder):
                         if filename.split("_")[0] == 'blur':
                             file = os.path.join(images_folder, filename)
+                            print(f"line 97 the file path is: {file}")
                             my_zip.write(file)
                             os.remove(file)
                 to_send = os.path.join(zip_file)
